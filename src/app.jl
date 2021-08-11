@@ -4,8 +4,7 @@ using GLPK
 using Gadfly
 
 
-function run_optimizer(Yearly_consumption, Annual_production)  
-	Active_season = 4 #1=Spring, 2=summer,...  
+function run_optimizer(Yearly_consumption, Annual_production)    
 	#Prices
 	P_RP = [0.11,0.11,0.11,0.11,0.11,0.11,0.11,0.11,0.17,0.17,0.29,0.29,0.29,0.29,0.17,0.17,0.29,0.29,0.29,0.29,0.29,0.29,0.17,0.17]
 	P_FI = [0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08]*-1
@@ -38,13 +37,7 @@ function run_optimizer(Yearly_consumption, Annual_production)
 	P_Winter = [0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.03,0.07,0.11,0.13,0.17,0.17,0.13,0.11,0.07,0.03,0.00,0.00,0.00,0.00,0.00,0.00] *Annual_production/365*SY_Winter
 
 	total_old_bill = [sum(P_RP[i]*C[i] for i=1:24)*365/4,sum(P_RP[i]*C[i] for i=1:24)*365/4,sum(P_RP[i]*C[i] for i=1:24)*365/4,sum(P_RP[i]*C[i] for i=1:24)*365/4]
-
 	total_new_bill = []
-	FI_A = []
-	BC_A = []
-	BS_A = []
-	B_A = []
-	GE_A = []
 
 	for season_idx=1:4
 		#**********************************************************************************************
@@ -85,23 +78,11 @@ function run_optimizer(Yearly_consumption, Annual_production)
 		optimize!(model)
 		append!(total_new_bill, JuMP.objective_value(model) * 365/4)
 		
-		FI = JuMP.value.(FI)
-		BC = JuMP.value.(BC)
-		BS = JuMP.value.(BS)
-		B = JuMP.value.(B)
-		GE = JuMP.value.(GE)
-		
-		append!(FI_A, [FI])
-		append!(BC_A, [BC])
-		append!(BS_A, [BS])
-		append!(B_A, [B])
-		append!(GE_A, [GE])    
 	end
 
 	#Payback time
 	savings = sum(total_old_bill) - sum(total_new_bill)
 	PB = 8490/savings
-	println(PB)
 	return PB
 end 
 
@@ -122,6 +103,7 @@ function launchServer(port)
         PB = run_optimizer(message["consumption"],message["production"]) 
       
         json(Dict("PB" => PB))
+    
     end
     
     Genie.AppServer.startup()
