@@ -1,4 +1,7 @@
 using Genie, Genie.Router, Genie.Renderer.Json, Genie.Requests
+using JuMP #,uIpopt # Gurobi, CSV, DataFrames, 
+using GLPK
+using Gadfly
 
 function launchServer(port)
 
