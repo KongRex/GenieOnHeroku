@@ -18,10 +18,10 @@ function launchServer(port)
 
     route("/echo", method = POST) do
         message = jsonpayload()
-        #(:echo => (message["message"] * " ") ^ message["repeat"]) |> json
-        PB = message["consumption"]
+        (:echo => (message["consumption"]) |> json
+        #PB = message["consumption"]
       
-        json(Dict("PB" => PB))
+        #json(Dict("PB" => PB))
     
     end
     
