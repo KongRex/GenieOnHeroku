@@ -14,11 +14,6 @@ function launchServer(port)
     end
 
     
-    route("/echo", method = POST) do
-      message = jsonpayload()
-      json(message["message"])
-    end
-    
     Genie.AppServer.startup()
 end
 
