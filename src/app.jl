@@ -1,4 +1,5 @@
-using Genie, Genie.Router, Genie.Renderer.Json, Genie.Requests
+using Genie, Genie.Router, Genie.Requests
+import Genie.Renderer.Json: json
 using JuMP #,uIpopt # Gurobi, CSV, DataFrames, 
 using GLPK
 using Gadfly
