@@ -12,6 +12,10 @@ function launchServer(port)
         "Hi there!"
     end
 
+    route("/echo", method = POST) do
+        message = jsonpayload()
+        (:echo => (message["message"] * " ") ^ message["repeat"]) |> json
+    end
     
     Genie.AppServer.startup()
 end
