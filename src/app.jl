@@ -1,5 +1,5 @@
-using Genie
-using Genie.Router
+using Genie, Genie.Router, Genie.Renderer.Json, Genie.Requests
+using HTTP
 
 function launchServer(port)
 
@@ -13,6 +13,12 @@ function launchServer(port)
         "Hi there!"
     end
 
+    
+    route("/echo", method = POST) do
+      message = jsonpayload()
+      json(message["message"])
+    end
+    
     Genie.AppServer.startup()
 end
 
