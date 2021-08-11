@@ -121,7 +121,7 @@ function launchServer(port)
         #(:echo => (message["message"] * " ") ^ message["repeat"]) |> json
         PB = run_optimizer(message["consumption"],message["production"]) 
       
-        json(Dict("PB" => PB)
+        json(Dict("PB" => PB))
     end
     
     Genie.AppServer.startup()
