@@ -1,5 +1,5 @@
 using Genie, Genie.Router, Genie.Requests
-import Genie.Renderer.Json
+using Genie.Renderer.Json
 
 function launchServer(port)
 
