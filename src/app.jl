@@ -1,5 +1,5 @@
 using Genie, Genie.Router, Genie.Requests
-import Genie.Renderer.Json: json
+import Genie.Renderer.Json
 using JuMP #,uIpopt # Gurobi, CSV, DataFrames, 
 using GLPK
 using Gadfly
@@ -17,12 +17,8 @@ function launchServer(port)
     end
 
     route("/echo", method = POST) do
-        message = jsonpayload()
-        (:echo => (message["consumption"]) |> json
-        #PB = message["consumption"]
-      
-        #json(Dict("PB" => PB))
-    
+      message = jsonpayload()
+      (:echo => (message["message"] * " ") ^ message["repeat"]) |> json
     end
     
     Genie.AppServer.startup()
