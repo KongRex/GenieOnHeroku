@@ -7,13 +7,13 @@ function launchServer(port)
     Genie.config.server_host = "0.0.0.0"
     Genie.config.server_port = port
 
-    route("/echo", method = POST) do
-        message = jsonpayload()
-        #(:echo => (message["message"] * " ") ^ message["repeat"]) |> json
-        json(message)
+    println("port set to $(port)")
+
+    route("/") do
+        "Hi there!"
     end
 
     Genie.AppServer.startup()
-	
 end
+
 launchServer(parse(Int, ARGS[1]))
